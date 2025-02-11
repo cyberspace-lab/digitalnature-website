@@ -1,0 +1,27 @@
+// Theme variables
+$theme-colors: (
+  primary: var(--primary-color),
+  secondary: var(--text-color-light),
+  text: var(--text-color),
+  background: var(--background),
+  border: var(--border-color)
+);
+
+// Breakpoints
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+// Spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3
+); 
