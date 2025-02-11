@@ -1,19 +1,18 @@
-// Reset defaults
-*, *::before, *::after {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
+}
+html,
+body {
   margin: 0;
   padding: 0;
 }
-
-// Default focus styles
-:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+body {
+  font-family: 'Roboto Mono', monospace;
 }
-
-// Image defaults
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-} 
+main {
+  p {
+    line-height: 1.5;
+  }
+}

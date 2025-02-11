@@ -1,6 +1,6 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import HomeHero from '../components/HomeHero.vue';
+import { Image } from 'astro:assets';
 
 const title = "About Project";
 const content = `A rapidly growing body of research shows that spending time in a forest environment, also known as forest bathing or shinrin-yoku (森林浴), benefits health and well-being. Several systematic reviews based on dozens of studies have reported that forest bathing improves psychophysical stress.
@@ -9,13 +9,23 @@ Unfortunately, there are groups of people who are unable to visit on their own. 
 
 This projects investigates potential of using virtual reality to create a forest bathing experience for people, who are unable to visit on their own. It tries to best understand how digital nature works, how it differs from real nature and how it can be used to create a satisfactory forest bathing experience.`;
 
-const featuredImage = "/assets/suchdol.png";
+import featuredImage from "./src/assets/suchdol.png";
 ---
 
 <MainLayout title={title}>
-  <HomeHero 
-    title={title}
-    content={content}
-    featuredImage={featuredImage}
-  />
+  <h2 class="goals-title">{title}</h2>
+  <div class="goals">
+    <div class="goals-image">
+        <img class="goals-img-border" src="/src/assets/ornaments/goals-img.svg"/>
+        {featuredImage ? (
+        <Image src={featuredImage} alt={title + " - Featured image"} class="featured-image" width="500" height="300"/>
+        ) : (
+          ""
+        )}
+    </div>
+    <div class="goals-text">
+      <img class="goals-text-border" src="./src/assets/ornaments/goals-text.svg"/>
+      <div set:html={content} />
+    </div>
+</div>
 </MainLayout>

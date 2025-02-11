@@ -1,61 +1,49 @@
-// Grid system
-.grid {
-  display: grid;
-  gap: $spacer;
-}
+/*
+  Author: Stackrole <info@stackrole.com>
+  Github: https://github.com/stackrole/css-grid-utility
+*/
 
-// Grid columns
-@for $i from 1 through 12 {
-  .grid-cols-#{$i} {
-    grid-template-columns: repeat($i, 1fr);
-  }
-}
+// Chnage these as per your requirement
+$columns: 1, 2, 3;
 
-// Responsive grid
-@each $breakpoint, $value in $breakpoints {
-  @media (min-width: $value) {
-    @for $i from 1 through 12 {
-      .grid-cols-#{$breakpoint}-#{$i} {
-        grid-template-columns: repeat($i, 1fr);
-      }
+// these are just placeholders for reference, change the actual values in mixin: grid-gen
+// $breakpoints: "sm", "md", "lg", "xl";
+// $breakpoint-sizes: 576px, 768px, 992px, 1200px;
+
+// creates CSS grid template columns with $columns
+@mixin mk-columns($breakpoint) {
+  @each $column in $columns {
+    &.#{$breakpoint}-#{$column} {
+      grid-template-columns: repeat($column, 1fr);
     }
   }
 }
 
-// Grid gap utilities
-@each $key, $value in $spacers {
-  .gap-#{$key} {
-    gap: $value;
-  }
-  .gap-x-#{$key} {
-    column-gap: $value;
-  }
-  .gap-y-#{$key} {
-    row-gap: $value;
+// Creates media query CSS grid template columns
+@mixin mq-grids($breakpoint, $breakpoint-size) {
+  @if $breakpoint == col {
+    @include mk-columns($breakpoint);
+  } @else {
+    @media (min-width: $breakpoint-size) {
+      @include mk-columns($breakpoint);
+    }
   }
 }
 
-// Grid alignment
-.items-center {
-  align-items: center;
+@mixin grid-gen {
+  // Add or Remove grid creation
+  @include mq-grids(
+    "col",
+    576px
+  ); // this wil create basic grid that is mobile-first, do not remove utill you are sure
+  @include mq-grids("sm", 576px);
+  @include mq-grids("md", 768px);
+  @include mq-grids("lg", 992px);
+  @include mq-grids("xl", 1200px);
 }
 
-.items-start {
-  align-items: start;
-}
-
-.items-end {
-  align-items: end;
-}
-
-.justify-items-center {
-  justify-items: center;
-}
-
-.justify-items-start {
-  justify-items: start;
-}
-
-.justify-items-end {
-  justify-items: end;
+.grids {
+  display: grid;
+  grid-gap: var(--grid-gap);
+  @include grid-gen; // creates grids
 }

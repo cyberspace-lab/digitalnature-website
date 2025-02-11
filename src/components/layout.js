@@ -1,15 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Header from "./header"
-import Logo from "./logo"
-import Navigation from "./navigation"
 
 import "../assets/scss/style.scss"
 import Footer from "./footer"
-import Theme from "../components/theme"
-import Search from "../components/search"
 
 const query = graphql`
   query LayoutQuery {
@@ -25,8 +21,6 @@ const query = graphql`
 `
 
 const Layout = ({ children, className, props }) => {
-  const { site } = useStaticQuery(query)
-  const { siteTitle } = site.siteMetadata
 
   return (
     <div className="primary-container">
@@ -42,16 +36,3 @@ const Layout = ({ children, className, props }) => {
 }
 
 export default Layout
-
-const layoutStyle = {
-  appearance: {
-    display: ["none", "none", "none", "flex"],
-    alignItems: "center",
-    gap: 4,
-  },
-  nav: {
-    display: "flex",
-    alignItems: "center",
-    gap: 4,
-  },
-}

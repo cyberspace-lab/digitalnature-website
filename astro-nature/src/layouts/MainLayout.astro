@@ -6,6 +6,8 @@ interface Props {
 
 const { title, description = "Digital Nature Research Project" } = Astro.props;
 import '../styles/global.scss';
+import Header from '../components/Header.vue';
+import Footer from '../components/Footer.astro';
 ---
 
 <!DOCTYPE html>
@@ -18,75 +20,14 @@ import '../styles/global.scss';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="container">
-        <nav class="site-navigation">
-          <a href="/" class="logo">Digital Nature</a>
-          <ul class="navigation-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main>
-      <slot />
-    </main>
-    <footer class="site-footer">
-      <div class="container">
-        <p>&copy; {new Date().getFullYear()} Digital Nature Research Project</p>
-      </div>
-    </footer>
+    <div class="primary-container"></div>
+      <Header />
+      <main class="container">
+        <div class="main-max-width">
+          <slot />
+        </div>
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
-
-<style lang="scss">
-.site-header {
-  padding: 1rem 0;
-  background: var(--header-bg);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.site-navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    text-decoration: none;
-    
-    &:hover {
-      color: var(--primary-color-dark);
-    }
-  }
-
-  .navigation-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    a {
-      color: var(--text-color);
-      text-decoration: none;
-      font-weight: 500;
-      
-      &:hover {
-        color: var(--primary-color);
-      }
-    }
-  }
-}
-
-.site-footer {
-  background: var(--header-bg);
-  padding: 1rem 0;
-  text-align: center;
-  margin-top: 2rem;
-}
-</style> 

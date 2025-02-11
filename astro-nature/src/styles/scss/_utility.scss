@@ -1,37 +1,22 @@
-// Margin utilities
-@each $key, $value in $spacers {
-  .mt-#{$key} { margin-top: $value; }
-  .mb-#{$key} { margin-bottom: $value; }
-  .ml-#{$key} { margin-left: $value; }
-  .mr-#{$key} { margin-right: $value; }
-  .mx-#{$key} { margin-left: $value; margin-right: $value; }
-  .my-#{$key} { margin-top: $value; margin-bottom: $value; }
+body{
+  overflow-x: hidden;
 }
 
-// Padding utilities
-@each $key, $value in $spacers {
-  .pt-#{$key} { padding-top: $value; }
-  .pb-#{$key} { padding-bottom: $value; }
-  .pl-#{$key} { padding-left: $value; }
-  .pr-#{$key} { padding-right: $value; }
-  .px-#{$key} { padding-left: $value; padding-right: $value; }
-  .py-#{$key} { padding-top: $value; padding-bottom: $value; }
+.text-align-right {
+  text-align: right;
 }
 
-// Text utilities
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
+.icon {
+  display: inline-block;
+  line-height: inherit;
+  vertical-align: middle;
+  align-items: center;
+  &.-love {
+    color: red;
+  }
+}
 
-// Display utilities
-.d-none { display: none; }
-.d-block { display: block; }
-.d-flex { display: flex; }
-.d-grid { display: grid; }
-
-// Flex utilities
-.flex-row { flex-direction: row; }
-.flex-column { flex-direction: column; }
-.justify-content-center { justify-content: center; }
-.align-items-center { align-items: center; }
-.flex-wrap { flex-wrap: wrap; } 
+a{
+  color: #fff;
+  text-decoration: none;
+}

@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PublicationCard from '../../components/PublicationCard.vue';
+import { getCollection } from 'astro:content';
+
+const publications = await getCollection('publications', ({ data }) => {
+  return true;
+});
+
+// Sort publications by date
+const sortedPublications = publications.sort((a, b) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout title="Publications | Digital Forest" description="Digital forest publications">
+  <main>
+    <h2>Publikace</h2>
+    <div class="team-cont">
+      {sortedPublications.map((publication, index) => (
+        <PublicationCard 
+          client:load
+          title={publication.data.title}
+          authors={publication.data.authors}
+          date={publication.data.date}
+          link={publication.data.link}
+          excerpt={publication.body.slice(0, 250)}
+        />
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+.team-cont {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .team-cont {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+</style> 
