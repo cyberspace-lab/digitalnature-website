@@ -1,0 +1,32 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import TeamMemberCard from '../components/TeamMemberCard.vue';
+import { getCollection } from 'astro:content';
+
+const teamMembers = await getCollection('team', ({ data }) => {
+  return data.template === 'team-member';
+});
+
+// Sort team members if needed
+const sortedTeamMembers = teamMembers.sort((a, b) => 
+  a.data.title.localeCompare(b.data.title)
+);
+---
+
+<MainLayout title="Team | Digital Forest" description="Digital forest team">
+  <main>
+    <h2>Team</h2>
+    <div class="team-cont">
+      {sortedTeamMembers.map((member, index) => (
+        <TeamMemberCard 
+          client:load
+          title={member.data.title}
+          description={member.data.description}
+          link={member.data.link ?? ''}
+          featuredImage={member.data.featuredImage ?? ''}
+          index={index}
+        />
+      ))}
+    </div>
+  </main>
+</MainLayout>

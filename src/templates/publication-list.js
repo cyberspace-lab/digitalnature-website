@@ -2,7 +2,6 @@
 import { jsx } from "theme-ui"
 import React from "react"
 import { Link, graphql } from "gatsby"
-import { RiArrowRightLine, RiArrowLeftLine } from "react-icons/ri"
 import Layout from "../components/layout"
 import PublicationCard from "../components/publication-card"
 import Seo from "../components/seo"

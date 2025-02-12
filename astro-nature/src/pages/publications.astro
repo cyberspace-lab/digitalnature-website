@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import PublicationCard from '../../components/PublicationCard.vue';
+import MainLayout from '../layouts/MainLayout.astro';
+import PublicationCard from '../components/PublicationCard.vue';
 import { getCollection } from 'astro:content';
 
 const publications = await getCollection('publications', ({ data }) => {
@@ -13,9 +13,9 @@ const sortedPublications = publications.sort((a, b) =>
 );
 ---
 
-<Layout title="Publications | Digital Forest" description="Digital forest publications">
+<MainLayout title="Publications | Digital Forest" description="Digital forest publications">
   <main>
-    <h2>Publikace</h2>
+    <h2>Publications</h2>
     <div class="team-cont">
       {sortedPublications.map((publication, index) => (
         <PublicationCard 
@@ -23,24 +23,9 @@ const sortedPublications = publications.sort((a, b) =>
           title={publication.data.title}
           authors={publication.data.authors}
           date={publication.data.date}
-          link={publication.data.link}
-          excerpt={publication.body.slice(0, 250)}
+          link={publication.data.link ?? ''}
         />
       ))}
     </div>
   </main>
-</Layout>
-
-<style>
-.team-cont {
-  display: grid;
-  gap: 2rem;
-  padding: 2rem 0;
-}
-
-@media (min-width: 768px) {
-  .team-cont {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-}
-</style> 
+</MainLayout>
