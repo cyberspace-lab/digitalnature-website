@@ -1,19 +1,19 @@
 {
-  "name": "digitalnature-website",
-  "version": "1.0.0",
-  "private": true,
+  "name": "astro-nature",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vue": "^4.0.8",
-    "astro": "^4.4.0",
-    "vue": "^3.4.19"
-  },
-  "devDependencies": {
-    "typescript": "^5.3.3"
+    "@astrojs/vue": "^5.0.6",
+    "astro": "^5.2.5",
+    "sass": "^1.84.0",
+    "vue": "^3.5.13",
+    "vite": "^4.0.0",
+    "@vitejs/plugin-vue": "^4.0.0"
   }
 }
