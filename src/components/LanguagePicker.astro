@@ -1,0 +1,47 @@
+---
+import { languages, type Lang } from '../i18n/ui';
+import { getLangFromUrl, getAlternateLocaleUrl } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+---
+
+<nav class="language-picker" aria-label="Language">
+  {Object.entries(languages).map(([code, label]) => (
+    <a
+      href={getAlternateLocaleUrl(Astro.url, code as Lang)}
+      class:list={['lang-link', { active: currentLang === code }]}
+      aria-current={currentLang === code ? 'true' : undefined}
+    >
+      {code.toUpperCase()}
+    </a>
+  ))}
+</nav>
+
+<style lang="scss">
+.language-picker {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .lang-link {
+    color: var(--text-faint);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 2px 6px;
+    transition: color 0.2s ease;
+    font-family: var(--font-family-mono, monospace);
+
+    &:hover {
+      color: var(--text-secondary);
+    }
+
+    &.active {
+      color: var(--text-primary);
+      font-weight: bold;
+    }
+  }
+}
+</style>

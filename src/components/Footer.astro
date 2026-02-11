@@ -1,30 +1,34 @@
 ---
 import { Image } from 'astro:assets';
-import ukLogo from "../assets/logos/logo-uk.png";
-import czuLogo from "../assets/logos/logo-czu.png";
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import fhsLogo from "../assets/logos/fhs_cz.png";
+import fldLogo from "../assets/logos/fld_cz.png";
 import psuLogo from "../assets/logos/logo-psu.png";
+
+interface Props {
+  lang?: Lang;
+}
+
+const lang = (Astro.props.lang || 'en') as Lang;
+const t = useTranslations(lang);
 ---
 
 <footer class="footer">
   <div class="footer-max-width">
     <div class="top-footer">
-      <a href="https://cuni.cz/uken-1.html" target="_blank" class="logo uk">
-        <Image src={ukLogo} alt="UK Logo" width="300" height="50"/>
-        <img class="backlight" src="/src/assets/ornaments/logo-violet.svg"/>
+      <a href="https://www.fld.czu.cz/en" target="_blank" class="logo czu">
+        <Image src={fldLogo} alt="FLD Logo" width="300" height="50"/>
       </a>
-      <a href="https://www.czu.cz/en" target="_blank" class="logo czu">
-        <Image src={czuLogo} alt="CZU Logo" width="300" height="50"/>
-        <img class="backlight" src="/src/assets/ornaments/logo-green.svg"/>
+      <a href="https://cuni.cz/uken-1.html" target="_blank" class="logo uk">
+        <Image src={fhsLogo} alt="FHS Logo" width="300" height="50"/>
       </a>
       <a href="https://psu.cas.cz/en/" target="_blank" class="logo psu">
         <Image src={psuLogo} alt="PSU Logo" width="300" height="50"/>
-        <img class="backlight" src="/src/assets/ornaments/logo-violet.svg"/>
       </a>
       </div>
       <div class="bottom-footer">
-        <p>© 2025 Digital Forest</p>
+        <p>{t('site.copyright')}</p>
       </div>
   </div>
 </footer>
-
-

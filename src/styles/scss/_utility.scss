@@ -17,6 +17,7 @@ body{
 }
 
 a{
-  color: #fff;
+  color: var(--link-color);
   text-decoration: none;
+  transition: color 0.2s ease;
 }

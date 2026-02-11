@@ -1,6 +1,5 @@
 <template>
-  <a :to="link" class="publication-card">
-    <img class="publication-border" :src= "index % 2 === 0 ? '/src/assets/ornaments/paper.svg' : '/src/assets/ornaments/paper-2.svg'"/>
+  <a :href="link" class="publication-card">
     <h3 class="publication-name">{{ title }}</h3>
     <p class="publication-meta">{{ authors }} {{ date }}</p>
   </a>
@@ -24,6 +23,9 @@ defineProps({
     type: String,
     default: ''
   },
-
+  index: {
+    type: Number,
+    default: 0
+  },
 });
 </script>

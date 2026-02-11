@@ -1,6 +1,5 @@
 <template>
-  <a :to="slug" class="news-card">
-    <img :src="index % 2 == 0 ? '/src/assets/ornaments/blog.svg' : '/src/assets/ornaments/blog-2.svg'" class="blog-border"/>
+  <a :href="slug" class="news-card">
     <img :src="featuredImage" :alt="title + ' - Featured image'" class="featured-image"/>
     <div class="news-text">
       <h3 class="name">{{title}}</h3>
@@ -12,6 +11,10 @@
 <script setup lang="ts">
 
 defineProps({
+  slug: {
+    type: String,
+    required: true
+  },
   featuredImage: {
     type: String,
     required: true

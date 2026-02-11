@@ -2,6 +2,7 @@
 template: contact-page
 slug: /contact
 title: Contact
+lang: en
 ---
 
 get in touch with us :)

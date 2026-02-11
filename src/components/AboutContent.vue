@@ -43,21 +43,21 @@ defineProps<{
 
     h1 {
       font-size: 2.5rem;
-      color: var(--primary-color);
+      color: var(--text-primary);
       margin-bottom: 2rem;
     }
 
     .content {
       font-size: 1.1rem;
       line-height: 1.7;
-      color: var(--text-color);
+      color: var(--text-secondary);
 
       p {
         margin-bottom: 1.5rem;
       }
 
       h2 {
-        color: var(--primary-color);
+        color: var(--text-primary);
         margin: 2rem 0 1rem;
       }
 

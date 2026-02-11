@@ -4,4 +4,5 @@ template: "team-member"
 description: "Research Lead focusing on virtual reality and forest bathing experiences. Expert in digital nature and its effects on human well-being."
 link: "https://example.com/john-doe"
 featuredImage: "./src/assets/members/random_1.png"
+lang: en
 --- 

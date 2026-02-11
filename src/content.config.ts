@@ -1,5 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 
+const langField = z.enum(['en', 'cs']).default('en');
+
 const publications = defineCollection({
   type: 'content',
   schema: z.object({
@@ -8,6 +10,7 @@ const publications = defineCollection({
     authors: z.string(),
     link: z.string().optional(),
     template: z.literal('publication'),
+    lang: langField,
   }),
 });
 
@@ -16,6 +19,7 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     featuredImage: z.string().optional(),
+    lang: langField,
   }),
 });
 
@@ -27,6 +31,7 @@ const team = defineCollection({
     link: z.string().optional(),
     featuredImage: z.string().optional(),
     template: z.literal('team-member'),
+    lang: langField,
   }),
 });
 
@@ -35,8 +40,11 @@ const posts = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.string(),
+    slug: z.string().optional(),
+    description: z.string().optional(),
     featuredImage: z.string().optional(),
     template: z.string().optional(),
+    lang: langField,
   }),
 });
 
@@ -45,4 +53,4 @@ export const collections = {
   pages,
   team,
   posts,
-}; 
+};

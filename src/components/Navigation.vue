@@ -23,7 +23,6 @@
       <li v-for="(menuItem, index) in menuItems" :key="index">
         <a :href="menuItem.path">{{ menuItem.title }}</a>
       </li>
-      <div></div>
     </ul>
   </nav>
 </template>
@@ -31,28 +30,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const menuItems = [
-  {
-    path: "/",
-    title: "Home",
-  },
-  {
-    path: "/blog", 
-    title: "Blog",
-  },
-  {
-    path: "/publications",
-    title: "Publications", 
-  },
-  {
-    path: "/team",
-    title: "Team",
-  },
-  {
-    path: "/contact",
-    title: "Contact",
-  },
-]
+defineProps<{
+  menuItems: Array<{ path: string; title: string }>;
+}>();
 
 const showMenu = ref(false)
 
@@ -69,11 +49,11 @@ const handleToggleClick = () => {
     cursor: pointer;
     padding: 0.5rem;
     position: relative;
-    
+
     .icon-menu-close {
       display: none;
     }
-    
+
     &.is-active {
       .icon-menu-line {
         display: none;
@@ -83,26 +63,26 @@ const handleToggleClick = () => {
       }
     }
   }
-  
+
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     gap: 2rem;
-    
+
     li {
       a {
         text-decoration: none;
         color: inherit;
-        
+
         &:hover {
           opacity: 0.7;
         }
       }
     }
   }
-  
+
   @media (max-width: 768px) {
     ul {
       flex-direction: column;

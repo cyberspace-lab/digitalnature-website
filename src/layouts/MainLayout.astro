@@ -1,33 +1,71 @@
 ---
-interface Props {
-  title: string;
-  description?: string;
-}
-
-const { title, description = "Digital Nature Research Project" } = Astro.props;
+import type { Lang } from '../i18n/ui';
+import { languages } from '../i18n/ui';
+import { useTranslations, getMenuItems, getAlternateLocaleUrl } from '../i18n/utils';
 import '../styles/global.scss';
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: Lang;
+}
+
+const lang = (Astro.props.lang || Astro.currentLocale || 'en') as Lang;
+const t = useTranslations(lang);
+const {
+  title = t('page.index.title'),
+  description = t('site.description'),
+} = Astro.props;
+
+const menuItems = getMenuItems(lang);
+const headerTitle = t('header.title');
+const siteName = t('site.title');
+
+// Build language links for the header
+const languageLinks = Object.entries(languages).map(([code, label]) => ({
+  code: code.toUpperCase(),
+  href: getAlternateLocaleUrl(Astro.url, code as Lang),
+  active: lang === code,
+}));
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} | Digital Nature</title>
+    <title>{title} | {siteName}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+    <script is:inline>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        if (!theme) {
+          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
   </head>
   <body>
     <div class="primary-container">
-      <Header />
+      <Header
+        client:load
+        headerTitle={headerTitle}
+        menuItems={menuItems}
+        languageLinks={languageLinks}
+      />
       <main class="container">
         <div class="main-max-width">
           <slot />
         </div>
       </main>
-      <Footer />
+      <Footer lang={lang} />
     </div>
   </body>
 </html>

@@ -1,8 +1,8 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import PublicationCard from '../components/PublicationCard.vue';
+import MainLayout from '../../layouts/MainLayout.astro';
+import PublicationCard from '../../components/PublicationCard.vue';
 import { getCollection } from 'astro:content';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

@@ -3,6 +3,7 @@ template: index-page
 slug: /
 title: About Project
 featuredImage: /assets/suchdol.png
+lang: en
 ---
 
 A rapidly growing body of research shows that spending time in a forest environment, also known as forest bathing or shinrin-yoku (森林浴), benefits health and well-being. Several systematic reviews based on dozens of studies have reported that forest bathing improves psychophysical stress.
