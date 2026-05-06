@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <!-- Heart-shaped leaf (linden) — wider, with serrated suggestion via small ticks on the curve -->
+  <path d="M40 6 C70 20 76 56 40 76 C4 56 10 20 40 6 Z" />
+  <path d="M40 10 L40 72" />
+  <path d="M40 24 L22 32" />
+  <path d="M40 24 L58 32" />
+  <path d="M40 40 L18 48" />
+  <path d="M40 40 L62 48" />
+  <path d="M40 56 L26 62" />
+  <path d="M40 56 L54 62" />
+  <!-- Faint serration ticks along upper curve -->
+  <path d="M22 18 L20 14" />
+  <path d="M30 11 L29 7" />
+  <path d="M50 11 L51 7" />
+  <path d="M58 18 L60 14" />
+</svg>

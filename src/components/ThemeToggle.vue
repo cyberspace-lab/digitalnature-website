@@ -1,5 +1,6 @@
 <template>
   <button
+    ref="btnRef"
     class="theme-toggle"
     @click="toggleTheme"
     :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
@@ -23,30 +24,59 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 
-const isDark = ref(true)
+const isDark = ref(true);
+const btnRef = ref<HTMLButtonElement | null>(null);
 
 const setTheme = (theme: 'dark' | 'light') => {
-  isDark.value = theme === 'dark'
-  document.documentElement.setAttribute('data-theme', theme)
-  localStorage.setItem('theme', theme)
-}
+  isDark.value = theme === 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+};
+
+// Paint a one-shot radial sweep from the toggle's centre when the
+// theme flips. The CSS lives in global.scss under the
+// `html[data-theme-transition="active"]::after` rule.
+const playSweep = (nextTheme: 'dark' | 'light') => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+
+  const root = document.documentElement;
+  const btn = btnRef.value;
+  if (btn) {
+    const r = btn.getBoundingClientRect();
+    const x = ((r.left + r.width / 2) / window.innerWidth) * 100;
+    const y = ((r.top + r.height / 2) / window.innerHeight) * 100;
+    root.style.setProperty('--cn-sweep-x', `${x}%`);
+    root.style.setProperty('--cn-sweep-y', `${y}%`);
+  }
+  // Tint by destination: cyber (dark) gets magenta, nature (light) gets sage.
+  root.style.setProperty(
+    '--cn-sweep-color',
+    nextTheme === 'dark' ? 'rgba(226, 15, 244, 0.45)' : 'rgba(122, 154, 107, 0.45)'
+  );
+
+  root.setAttribute('data-theme-transition', 'active');
+  window.setTimeout(() => root.removeAttribute('data-theme-transition'), 520);
+};
 
 const toggleTheme = () => {
-  setTheme(isDark.value ? 'light' : 'dark')
-}
+  const next = isDark.value ? 'light' : 'dark';
+  playSweep(next);
+  setTheme(next);
+};
 
 onMounted(() => {
-  const stored = localStorage.getItem('theme')
+  const stored = localStorage.getItem('theme');
   if (stored === 'light' || stored === 'dark') {
-    setTheme(stored)
+    setTheme(stored);
   } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-    setTheme('light')
+    setTheme('light');
   } else {
-    setTheme('dark')
+    setTheme('dark');
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>

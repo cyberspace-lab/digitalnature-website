@@ -111,6 +111,10 @@ a[aria-current="page"]::after {
   transition:
     opacity var(--dur-base) var(--ease-standard),
     filter var(--dur-base) var(--ease-standard);
+  // Slow biophilic drift — barely perceptible, evokes wind in dark
+  // mode (synthwave data-flow) and leaves rustling in light mode.
+  animation: cn-orn-drift-l 22s var(--ease-standard) infinite;
+  will-change: transform, opacity;
 }
 
 header h1 {
@@ -132,6 +136,8 @@ header h1 {
   opacity: var(--ornament-opacity);
   filter: var(--ornament-filter);
   pointer-events: none;
+  animation: cn-orn-drift-r 26s var(--ease-standard) infinite;
+  will-change: transform, opacity;
   transition:
     opacity var(--dur-base) var(--ease-standard),
     filter var(--dur-base) var(--ease-standard);
@@ -192,6 +198,10 @@ main h2 {
 // =============================================================
 // Goals (home) — two-column hero with corner-bracket image
 // =============================================================
+.goals-section {
+  position: relative;
+}
+
 .goals {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
@@ -205,6 +215,9 @@ main h2 {
   margin: 0;
   order: 2;
 
+  // Corner brackets: drawn via two CSS-border pseudo-elements that
+  // grow in from 0 → 30px on first paint, like the bracket is
+  // sketched onto the page.
   &::before,
   &::after {
     content: '';
@@ -212,7 +225,10 @@ main h2 {
     width: 30px;
     height: 30px;
     z-index: 1;
-    transition: border-color var(--dur-base) var(--ease-standard);
+    transition:
+      border-color var(--dur-base) var(--ease-standard),
+      width var(--dur-base) var(--ease-standard),
+      height var(--dur-base) var(--ease-standard);
   }
 
   &::before {
@@ -220,6 +236,7 @@ main h2 {
     left: -8px;
     border-top: 2px solid var(--accent-primary);
     border-left: 2px solid var(--accent-primary);
+    animation: cn-bracket-tl 700ms var(--ease-out) 250ms both;
   }
 
   &::after {
@@ -227,7 +244,25 @@ main h2 {
     right: -8px;
     border-bottom: 2px solid var(--accent-primary);
     border-right: 2px solid var(--accent-primary);
+    animation: cn-bracket-br 700ms var(--ease-out) 350ms both;
   }
+
+  // Hover: brackets extend +6 px and brighten with a faint glow.
+  &:hover::before,
+  &:hover::after {
+    width: 36px;
+    height: 36px;
+    filter: drop-shadow(0 0 6px var(--glow-primary-strong));
+  }
+}
+
+@keyframes cn-bracket-tl {
+  from { width: 0; height: 0; opacity: 0; }
+  to   { width: 30px; height: 30px; opacity: 1; }
+}
+@keyframes cn-bracket-br {
+  from { width: 0; height: 0; opacity: 0; }
+  to   { width: 30px; height: 30px; opacity: 1; }
 }
 
 .goals-image .featured-image,
@@ -652,12 +687,190 @@ main h2 {
       content: '—';
       margin-right: 0.5em;
       color: var(--fg-3);
+      display: inline-block;
+      animation: cn-em-dash-in 700ms var(--ease-out) 200ms both;
     }
 
     &::after {
       content: '—';
       margin-left: 0.5em;
       color: var(--fg-3);
+      display: inline-block;
+      animation: cn-em-dash-in 700ms var(--ease-out) 200ms both;
     }
+  }
+}
+
+// =============================================================
+// Animations — biophilic accents (cyber: neon/scanlines, nature: leafy)
+// All gated by prefers-reduced-motion at the bottom of this block.
+// =============================================================
+
+// Header ornament drift — barely perceptible breath
+@keyframes cn-orn-drift-l {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: var(--ornament-opacity); }
+  50%      { transform: translate3d(6px, -3px, 0); opacity: calc(var(--ornament-opacity) * 1.15); }
+}
+@keyframes cn-orn-drift-r {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: var(--ornament-opacity); }
+  50%      { transform: translate3d(-6px, 4px, 0); opacity: calc(var(--ornament-opacity) * 1.15); }
+}
+
+// Em-dash fade-in around H2 (light mode only)
+@keyframes cn-em-dash-in {
+  from { opacity: 0; transform: translateX(0.4em); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+// Dark-mode H2 — single thin neon underline that writes in once.
+[data-theme="dark"] main h2 {
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 1px;
+    margin: var(--space-3) auto 0;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--accent-primary) 35%,
+      var(--accent-secondary) 65%,
+      transparent 100%
+    );
+    transform-origin: left center;
+    animation: cn-h2-rule 900ms var(--ease-out) 150ms both;
+  }
+}
+
+@keyframes cn-h2-rule {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+// Card accent bars — gentle hover extension + brighten
+.news-card::before,
+.publication-card::before,
+.goals-text::before {
+  transition:
+    background var(--dur-base) var(--ease-standard),
+    height var(--dur-base) var(--ease-standard),
+    width var(--dur-base) var(--ease-standard),
+    filter var(--dur-base) var(--ease-standard);
+}
+
+.news-card:hover::before {
+  height: 70%;
+  top: 15%;
+  filter: drop-shadow(0 0 6px var(--glow-primary-strong));
+}
+
+.news-card:nth-child(2n):hover::before {
+  filter: drop-shadow(0 0 6px var(--glow-secondary-strong));
+}
+
+.publication-card:hover::before {
+  width: 72px;
+  filter: drop-shadow(0 0 6px var(--glow-primary-strong));
+}
+
+.publication-card:nth-child(2n):hover::before {
+  filter: drop-shadow(0 0 6px var(--glow-secondary-strong));
+}
+
+// Team avatar — halo breathes on hover
+.team-cont .member:hover .member-avatar::before {
+  animation: cn-halo-breathe 3.4s var(--ease-standard) infinite;
+}
+
+@keyframes cn-halo-breathe {
+  0%, 100% { opacity: 0.18; filter: blur(18px); }
+  50%      { opacity: 0.36; filter: blur(22px); }
+}
+
+[data-theme="light"] .team-cont .member:hover .member-avatar::before {
+  animation: cn-halo-breathe-light 4.0s var(--ease-standard) infinite;
+}
+
+@keyframes cn-halo-breathe-light {
+  0%, 100% { opacity: 0.25; filter: blur(14px); }
+  50%      { opacity: 0.42; filter: blur(20px); }
+}
+
+// Footer logo halos — slow synthwave cross-fade in dark mode only.
+// Each logo gets a slightly offset delay so they don't pulse in sync.
+[data-theme="dark"] .top-footer .logo::before {
+  animation: cn-halo-pulse 9s ease-in-out infinite;
+}
+[data-theme="dark"] .top-footer .uk::before  { animation-delay: 0s;   }
+[data-theme="dark"] .top-footer .czu::before { animation-delay: -3s;  }
+[data-theme="dark"] .top-footer .psu::before { animation-delay: -6s;  }
+
+@keyframes cn-halo-pulse {
+  0%, 100% { background: var(--glow-primary-strong);   opacity: 0.45; }
+  50%      { background: var(--glow-secondary-strong); opacity: 0.65; }
+}
+
+// Theme-toggle radial sweep — paints once when the theme attribute flips.
+// Implemented as a fixed pseudo-element on <html> driven by the
+// `data-theme-transition` attribute the toggle sets.
+html::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--cn-sweep-x, 100%) var(--cn-sweep-y, 0%),
+    var(--cn-sweep-color, transparent) 0%,
+    transparent 35%
+  );
+  opacity: 0;
+}
+
+html[data-theme-transition="active"]::after {
+  animation: cn-theme-sweep 520ms var(--ease-out) both;
+}
+
+@keyframes cn-theme-sweep {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.55; }
+  100% { opacity: 0; }
+}
+
+// Page-load orchestration: hero text + image fade up once.
+.goals-text  { animation: cn-rise 700ms var(--ease-out) 80ms both; }
+.goals-image { animation: cn-rise 700ms var(--ease-out) 200ms both; }
+
+@keyframes cn-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// =============================================================
+// Reduced motion — disable all decorative animations.
+// =============================================================
+@media (prefers-reduced-motion: reduce) {
+  .title-lines,
+  .header-border-lines,
+  [data-theme="light"] main h2::before,
+  [data-theme="light"] main h2::after,
+  [data-theme="dark"] main h2::after,
+  .team-cont .member:hover .member-avatar::before,
+  [data-theme="dark"] .top-footer .logo::before,
+  html[data-theme-transition="active"]::after,
+  .goals-text,
+  .goals-image,
+  .goals-image::before,
+  .goals-image::after {
+    animation: none !important;
+  }
+
+  // Strip transitions to a hair so theme toggling still updates colour.
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
   }
 }

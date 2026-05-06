@@ -2,6 +2,7 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import FallingLeaves from '../components/FallingLeaves.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -14,6 +15,7 @@ import featuredImage from '../assets/suchdol.png';
 
 <MainLayout title={title} lang={lang}>
   <section class="goals-section">
+    <FallingLeaves />
     <h2 class="goals-title">{title}</h2>
     <div class="goals">
       <div class="goals-text">
