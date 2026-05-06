@@ -9,21 +9,25 @@ const t = useTranslations(lang);
 const title = t('page.index.title');
 const content = t('page.index.content');
 
-import featuredImage from "../assets/suchdol.png";
+import featuredImage from '../assets/suchdol.png';
 ---
 
 <MainLayout title={title} lang={lang}>
-  <h2 class="goals-title">{title}</h2>
-  <div class="goals">
-    <div class="goals-image">
-        {featuredImage ? (
-        <Image src={featuredImage} alt={title + " - Featured image"} class="featured-image" width="500" height="300"/>
-        ) : (
-          ""
-        )}
+  <section class="goals-section">
+    <h2 class="goals-title">{title}</h2>
+    <div class="goals">
+      <div class="goals-text">
+        <div set:html={content} />
+      </div>
+      <div class="goals-image">
+        <Image
+          src={featuredImage}
+          alt={`${title} — featured image`}
+          class="featured-image"
+          width={520}
+          height={520}
+        />
+      </div>
     </div>
-    <div class="goals-text">
-      <div set:html={content} />
-    </div>
-</div>
+  </section>
 </MainLayout>

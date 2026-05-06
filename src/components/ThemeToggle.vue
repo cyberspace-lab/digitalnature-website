@@ -52,23 +52,27 @@ onMounted(() => {
 <style lang="scss" scoped>
 .theme-toggle {
   background: none;
-  border: 1px solid var(--border-color);
-  border-radius: 50%;
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-circle);
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--text-secondary);
-  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  color: var(--fg-2);
   padding: 0;
-  margin-left: 20px;
+  margin-left: 0;
   flex-shrink: 0;
+  transition:
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    background-color var(--dur-fast) var(--ease-standard);
 
   &:hover {
-    color: var(--text-primary);
+    color: var(--fg-1);
     background-color: var(--bg-secondary);
+    border-color: var(--fg-3);
   }
 }
 </style>

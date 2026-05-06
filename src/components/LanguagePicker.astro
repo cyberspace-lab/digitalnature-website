@@ -3,45 +3,51 @@ import { languages, type Lang } from '../i18n/ui';
 import { getLangFromUrl, getAlternateLocaleUrl } from '../i18n/utils';
 
 const currentLang = getLangFromUrl(Astro.url);
+const entries = Object.entries(languages) as [Lang, string][];
 ---
 
 <nav class="language-picker" aria-label="Language">
-  {Object.entries(languages).map(([code, label]) => (
-    <a
-      href={getAlternateLocaleUrl(Astro.url, code as Lang)}
-      class:list={['lang-link', { active: currentLang === code }]}
-      aria-current={currentLang === code ? 'true' : undefined}
-    >
-      {code.toUpperCase()}
-    </a>
+  {entries.map(([code], idx) => (
+    <>
+      {idx > 0 && <span class="lang-sep" aria-hidden="true">|</span>}
+      <a
+        href={getAlternateLocaleUrl(Astro.url, code)}
+        class:list={['lang-link', { active: currentLang === code }]}
+        aria-current={currentLang === code ? 'true' : undefined}
+      >
+        {code.toUpperCase()}
+      </a>
+    </>
   ))}
 </nav>
 
 <style lang="scss">
 .language-picker {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: flex-end;
-  padding: 0.5rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
 
   .lang-link {
-    color: var(--text-faint);
+    color: var(--fg-4);
     text-decoration: none;
-    font-size: 14px;
-    padding: 2px 6px;
-    transition: color 0.2s ease;
-    font-family: var(--font-family-mono, monospace);
+    font-size: var(--fs-sm);
+    padding: 2px 4px;
+    letter-spacing: var(--tracking-mono);
+    transition: color var(--dur-fast) var(--ease-standard);
 
-    &:hover {
-      color: var(--text-secondary);
-    }
+    &:hover { color: var(--fg-2); }
 
     &.active {
-      color: var(--text-primary);
-      font-weight: bold;
+      color: var(--fg-1);
+      font-weight: 700;
     }
+  }
+
+  .lang-sep {
+    color: var(--fg-5);
+    font-size: var(--fs-sm);
+    user-select: none;
   }
 }
 </style>

@@ -4,58 +4,229 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 1022px;
 $breakpoint-xl: 1200px;
 
-// Dark theme (default - cyberpunk)
+// =====================================================
+// CANOPy Design System — tokens
+// Two themes: cyber (dark, default) + nature (light).
+// Both share structural tokens; only the palette swaps.
+// Legacy aliases (--text-primary, --accent-glow-primary, …) are
+// kept so older selectors continue to work during migration.
+// =====================================================
+
+// -----------------------------------------------------
+// DARK / CYBER (default) — synthwave neon on near-black
+// -----------------------------------------------------
 :root,
 [data-theme="dark"] {
+  // Surfaces
   --bg-primary: #151517;
   --bg-secondary: #1e1e22;
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.8);
-  --text-muted: rgba(255, 255, 255, 0.6);
-  --text-faint: rgba(255, 255, 255, 0.5);
-  --border-color: rgba(255, 255, 255, 0.15);
-  --link-color: #ffffff;
-  --link-hover: #ffffff;
+  --bg-elevated: #25252a;
+  --bg-overlay: rgba(21, 21, 23, 0.92);
+
+  // Foreground (text) — four opacity tiers
+  --fg-1: #ffffff;
+  --fg-2: rgba(255, 255, 255, 0.8);
+  --fg-3: rgba(255, 255, 255, 0.6);
+  --fg-4: rgba(255, 255, 255, 0.5);
+  --fg-5: rgba(255, 255, 255, 0.3);
+
+  // Borders + dividers
+  --border-1: rgba(255, 255, 255, 0.15);
+  --border-2: rgba(255, 255, 255, 0.08);
+
+  // Brand accents — synthwave neon duo (+ tertiary cyan, used sparingly)
   --accent-primary: #e20ff4;
   --accent-secondary: #49e258;
-  --accent-glow-primary: rgba(226, 15, 244, 0.15);
-  --accent-glow-secondary: rgba(73, 226, 88, 0.15);
+  --accent-tertiary: #00e5ff;
+
+  // Glow halos (footer logos, dark-mode button hover, hero accents)
+  --glow-primary: rgba(226, 15, 244, 0.15);
+  --glow-secondary: rgba(73, 226, 88, 0.15);
+  --glow-primary-strong: rgba(226, 15, 244, 0.45);
+  --glow-secondary-strong: rgba(73, 226, 88, 0.45);
+
+  // Links
+  --link: var(--fg-1);
+  --link-hover: var(--accent-secondary);
+
+  // Semantic
+  --success: #49e258;
+  --warning: #ffcf3c;
+  --danger: #ff4d6d;
+  --info: #00e5ff;
+
+  // Effects
   --ornament-opacity: 0.7;
   --ornament-filter: none;
   --card-shadow: none;
   --card-hover-opacity: 0.8;
   --logo-filter: none;
   --photo-shadow: none;
+  --shadow-glow: 0 0 24px var(--glow-primary-strong);
+  --shadow-glow-soft: 0 0 12px var(--glow-primary);
 
-  --font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
-    helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
-  --font-family-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
-    monospace;
-  --font-size-small: 12px;
+  // Page-marker glyphs (current page brackets, member-role frames)
+  --marker-open: "[[";
+  --marker-close: "]]";
+  --role-open: "// ";
+  --role-close: " //";
 
-  // CSS Grid Utility
-  --grid-gap: 30px;
+  // ---- Legacy aliases (compat) ----
+  --text-primary: var(--fg-1);
+  --text-secondary: var(--fg-2);
+  --text-muted: var(--fg-3);
+  --text-faint: var(--fg-4);
+  --border-color: var(--border-1);
+  --link-color: var(--link);
+  --accent-glow-primary: var(--glow-primary);
+  --accent-glow-secondary: var(--glow-secondary);
 }
 
-// Light theme (nature)
+// -----------------------------------------------------
+// LIGHT / NATURE — muted biophilic, sage + bark
+// -----------------------------------------------------
 [data-theme="light"] {
+  // Surfaces — bone / parchment / pale moss
   --bg-primary: #f5f0e8;
   --bg-secondary: #ebe5d9;
-  --text-primary: #2c3e2d;
-  --text-secondary: #3d5a3e;
-  --text-muted: #6b8f6d;
-  --text-faint: #8aaa8c;
-  --border-color: rgba(44, 62, 45, 0.15);
-  --link-color: #2c5530;
-  --link-hover: #1a3a1e;
-  --ornament-opacity: 0.07;
-  --ornament-filter: sepia(0.4) saturate(0.3) hue-rotate(80deg) brightness(0.7) blur(1px);
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(245, 240, 232, 0.92);
+
+  // Foreground — deep forest greens
+  --fg-1: #2c3e2d;
+  --fg-2: #3d5a3e;
+  --fg-3: #6b8f6d;
+  --fg-4: #8aaa8c;
+  --fg-5: rgba(44, 62, 45, 0.25);
+
+  --border-1: rgba(44, 62, 45, 0.15);
+  --border-2: rgba(44, 62, 45, 0.08);
+
+  // Brand accents — sage + lichen (+ bark amber as tertiary contrast)
   --accent-primary: #7a9a6b;
   --accent-secondary: #9bb88d;
-  --accent-glow-primary: rgba(122, 154, 107, 0.1);
-  --accent-glow-secondary: rgba(155, 184, 141, 0.1);
+  --accent-tertiary: #c79968;
+
+  --glow-primary: rgba(122, 154, 107, 0.10);
+  --glow-secondary: rgba(155, 184, 141, 0.10);
+  --glow-primary-strong: rgba(122, 154, 107, 0.30);
+  --glow-secondary-strong: rgba(155, 184, 141, 0.30);
+
+  --link: #2c5530;
+  --link-hover: #1a3a1e;
+
+  --success: #5e8a4a;
+  --warning: #c79968;
+  --danger: #a05a4a;
+  --info: #6b8f8a;
+
+  --ornament-opacity: 0.07;
+  --ornament-filter: sepia(0.4) saturate(0.3) hue-rotate(80deg) brightness(0.7) blur(1px);
   --card-shadow: 0 2px 12px rgba(44, 62, 45, 0.08);
   --card-hover-opacity: 0.7;
   --logo-filter: brightness(0.3) sepia(0.2) hue-rotate(70deg);
   --photo-shadow: 0 2px 16px rgba(44, 62, 45, 0.12);
+  --shadow-glow: 0 0 24px var(--glow-primary-strong);
+  --shadow-glow-soft: 0 0 12px var(--glow-primary);
+
+  --marker-open: "~ ";
+  --marker-close: " ~";
+  --role-open: "~ ";
+  --role-close: " ~";
+
+  // ---- Legacy aliases ----
+  --text-primary: var(--fg-1);
+  --text-secondary: var(--fg-2);
+  --text-muted: var(--fg-3);
+  --text-faint: var(--fg-4);
+  --border-color: var(--border-1);
+  --link-color: var(--link);
+  --accent-glow-primary: var(--glow-primary);
+  --accent-glow-secondary: var(--glow-secondary);
+}
+
+// -----------------------------------------------------
+// STRUCTURAL TOKENS — shared across both themes
+// -----------------------------------------------------
+:root {
+  // Type families. Body/UI uses Roboto Mono — humanist mono carries
+  // the lab/research feel without going full terminal. Display borrows
+  // the same mono at heavier weights. Sans fallback for prose only.
+  --font-mono: "Roboto Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --font-display: "Roboto Mono", "JetBrains Mono", monospace;
+  --font-body: "Roboto Mono", monospace;
+  --font-prose: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+                "helvetica neue", helvetica, Ubuntu, roboto, noto, "segoe ui",
+                arial, sans-serif;
+
+  // Legacy alias
+  --font-family: var(--font-body);
+  --font-family-mono: var(--font-mono);
+
+  // Type scale — modular, tuned for mono
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 15px;
+  --fs-md: 16px;
+  --fs-lg: 18px;
+  --fs-xl: 24px;
+  --fs-2xl: 32px;
+  --fs-3xl: 40px;
+  --fs-4xl: 56px;
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh-normal: 1.6;
+  --lh-loose: 1.7;
+
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-mono: 0.04em;
+
+  // Spacing — 4px base
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  // Radii — restrained; sharp by default, soft only on photos
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  // Layout
+  --container-max: 1200px;
+  --container-pad: 24px;
+  --content-max: 700px;
+
+  // Motion
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 0.2s;
+  --dur-base: 0.3s;
+  --dur-slow: 0.5s;
+
+  // Shadows / elevation
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-2: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.16);
+
+  // Legacy
+  --font-size-small: var(--fs-xs);
+
+  // CSS Grid Utility
+  --grid-gap: 30px;
 }

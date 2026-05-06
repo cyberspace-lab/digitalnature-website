@@ -3,22 +3,24 @@
     <div id="menu" class="menu">
       <Navigation :menuItems="menuItems" />
       <div class="menu-controls">
-        <div class="lang-links">
-          <a
-            v-for="link in languageLinks"
-            :key="link.code"
-            :href="link.href"
-            :class="['lang-link', { active: link.active }]"
-          >{{ link.code }}</a>
+        <div class="lang-links" aria-label="Language">
+          <template v-for="(link, idx) in languageLinks" :key="link.code">
+            <span v-if="idx > 0" class="lang-sep" aria-hidden="true">|</span>
+            <a
+              :href="link.href"
+              :class="['lang-link', { active: link.active }]"
+              :aria-current="link.active ? 'true' : undefined"
+            >{{ link.code }}</a>
+          </template>
         </div>
         <ThemeToggle />
       </div>
     </div>
     <div class="title-card">
-        <img class="title-lines" src="/src/assets/ornaments/title.svg"/>
-        <h1 v-html="headerTitle"></h1>
+      <img class="title-lines" src="/src/assets/ornaments/title.svg" aria-hidden="true" />
+      <h1 v-html="headerTitle"></h1>
     </div>
-    <img class="header-border-lines" src="/src/assets/ornaments/header.svg"/>
+    <img class="header-border-lines" src="/src/assets/ornaments/header.svg" aria-hidden="true" />
   </header>
 </template>
 
@@ -37,29 +39,36 @@ defineProps<{
 .menu-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   margin-left: 20px;
 }
 
 .lang-links {
-  display: flex;
-  gap: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+}
 
-  .lang-link {
-    color: var(--text-faint);
-    text-decoration: none;
-    font-size: 13px;
-    padding: 2px 4px;
-    transition: color 0.2s ease;
+.lang-link {
+  color: var(--fg-4);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  padding: 2px 4px;
+  letter-spacing: var(--tracking-mono);
+  transition: color var(--dur-fast) var(--ease-standard);
 
-    &:hover {
-      color: var(--text-secondary);
-    }
+  &:hover { color: var(--fg-2); }
 
-    &.active {
-      color: var(--text-primary);
-      font-weight: bold;
-    }
+  &.active {
+    color: var(--fg-1);
+    font-weight: 700;
   }
+}
+
+.lang-sep {
+  color: var(--fg-5);
+  font-size: var(--fs-sm);
+  user-select: none;
 }
 </style>
