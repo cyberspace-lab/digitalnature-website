@@ -1,0 +1,36 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, getLocalizedPath } from '../../../i18n/utils';
+import { stripLangSuffix } from '../../../i18n/content';
+import { languages, defaultLang, type Lang } from '../../../i18n/ui';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((code) => ({
+    params: { lang: code === defaultLang ? undefined : code },
+    props: { lang: code as Lang },
+  }));
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const entries = await getCollection('forest-management', ({ data }) => data.lang === lang);
+const sorted = entries.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+---
+
+<MainLayout title={t('page.forest-management.meta')} description={t('page.forest-management.description')} lang={lang}>
+  <h2>{t('page.forest-management.title')}</h2>
+  <p class="collection-lede">{t('page.forest-management.lede')}</p>
+  <ul class="collection-list">
+    {sorted.map((entry) => (
+      <li class="collection-list__item">
+        <a href={getLocalizedPath(lang, `/forest-management/${stripLangSuffix(entry.id)}`)}>
+          <span class="collection-list__pillar">{t(`forest-management.topic.${entry.data.topic}`)}</span>
+          <h3 class="collection-list__title">{entry.data.title}</h3>
+          <p class="collection-list__summary">{entry.data.summary}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</MainLayout>

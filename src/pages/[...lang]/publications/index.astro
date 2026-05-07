@@ -1,0 +1,57 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import PublicationCard from '../../../components/PublicationCard.vue';
+import { z } from 'astro:content';
+import { useTranslations } from '../../../i18n/utils';
+import { languages, defaultLang, type Lang } from '../../../i18n/ui';
+import publicationsData from '../../../data/publications.json';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((code) => ({
+    params: { lang: code === defaultLang ? undefined : code },
+    props: { lang: code as Lang },
+  }));
+}
+
+const PublicationSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  authors: z.string(),
+  date: z.string(),
+  venue: z.string().optional(),
+  type: z.enum(['paper', 'preprint', 'report', 'dataset', 'chapter']).default('paper'),
+  doi: z.string().optional(),
+  link: z.string().optional(),
+  pdf: z.string().optional(),
+  abstract: z.string().optional(),
+});
+
+const publications = z.array(PublicationSchema).parse(publicationsData);
+const sorted = [...publications].sort((a, b) =>
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+function preferredLink(p: typeof publications[number]): string {
+  return p.link ?? (p.doi ? `https://doi.org/${p.doi}` : (p.pdf ?? ''));
+}
+---
+
+<MainLayout title={t('page.publications.meta')} description={t('page.publications.description')} lang={lang}>
+  <h2>{t('page.publications.title')}</h2>
+  <p class="collection-lede">{t('page.publications.lede')}</p>
+  <div class="papers-cont">
+    {sorted.map((publication, index) => (
+      <PublicationCard
+        client:load
+        title={publication.title}
+        authors={publication.authors}
+        date={publication.date}
+        link={preferredLink(publication)}
+        index={index}
+      />
+    ))}
+  </div>
+</MainLayout>

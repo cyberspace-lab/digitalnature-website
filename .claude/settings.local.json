@@ -4,7 +4,22 @@
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
       "WebFetch(domain:localhost)",
-      "WebFetch(domain:docs.astro.build)"
+      "WebFetch(domain:docs.astro.build)",
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(curl -sIL \"https://api.anthropic.com/v1/design/h/HktBeuoY7YUWqZhETB1bXQ\")",
+      "Bash(mkdir -p /tmp/design-pkg)",
+      "Bash(tar -tzf /Users/lukashejtmanek/.claude/projects/-Users-lukashejtmanek-Documents-Projects-CyberspaceLab-Websites-digitalnature-website/4cc62fd5-dd03-4080-a8f8-14cd75715214/tool-results/webfetch-1778091310189-m40x95.bin)",
+      "Bash(rm -rf /tmp/design-pkg)",
+      "Bash(tar -xzf /Users/lukashejtmanek/.claude/projects/-Users-lukashejtmanek-Documents-Projects-CyberspaceLab-Websites-digitalnature-website/4cc62fd5-dd03-4080-a8f8-14cd75715214/tool-results/webfetch-1778091310189-m40x95.bin -C /tmp/design-pkg)",
+      "Read(//tmp/design-pkg/**)",
+      "mcp__plugin_playwright_playwright__browser_resize",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "mcp__plugin_playwright_playwright__browser_click",
+      "mcp__plugin_playwright_playwright__browser_close",
+      "Bash(pkill -f \"astro dev\")",
+      "Bash(npx astro *)"
     ]
   }
 }

@@ -1,0 +1,40 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { useTranslations, getLocalizedPath } from '../../../i18n/utils';
+import { stripLangSuffix } from '../../../i18n/content';
+import { defaultLang, type Lang } from '../../../i18n/ui';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('research');
+  return entries.map((entry) => {
+    const lang = entry.data.lang as Lang;
+    return {
+      params: {
+        lang: lang === defaultLang ? undefined : lang,
+        slug: stripLangSuffix(entry.id),
+      },
+      props: { entry, lang },
+    };
+  });
+}
+
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(entry);
+---
+
+<MainLayout title={`${entry.data.title} | ${t('site.title')}`} description={entry.data.summary} lang={lang}>
+  <article class="prose">
+    <p class="article-eyebrow">
+      <a href={getLocalizedPath(lang, '/research')}>{t('page.research.title')}</a>
+    </p>
+    <h2>{entry.data.title}</h2>
+    <p class="article-summary">{entry.data.summary}</p>
+    <p class="article-meta">{entry.data.date} · {t(`research.status.${entry.data.status}`)}{entry.data.partners ? ` · ${entry.data.partners.join(', ')}` : ''}</p>
+    <Content />
+    {entry.data.link && (
+      <p><a href={entry.data.link} target="_blank" rel="noopener">{t('research.externalLink')}</a></p>
+    )}
+  </article>
+</MainLayout>

@@ -9,19 +9,24 @@
   },
   "nav": {
     "home": "Domů",
-    "blog": "Blog",
+    "theory": "Teorie",
+    "practices": "Praxe",
+    "forest-management": "Lesní management",
+    "research": "Výzkum",
     "publications": "Publikace",
     "team": "Tým",
+    "news": "Aktuality",
     "contact": "Kontakt"
   },
   "page": {
-    "blog": {
-      "title": "Blog"
+    "news": {
+      "title": "Aktuality"
     },
     "publications": {
       "title": "Publikace",
       "meta": "Publikace | Digitální les",
-      "description": "Publikace projektu Digitální les"
+      "description": "Akademické publikace projektu Digitální les",
+      "lede": "Vědecké publikace, preprinty a zprávy projektu — určeno především zahraničním kolegům."
     },
     "team": {
       "title": "Tým",
@@ -33,6 +38,67 @@
     },
     "index": {
       "title": "O projektu"
+    },
+    "theory": {
+      "title": "Teorie",
+      "meta": "Teorie | Digitální les",
+      "description": "Psychologické a fyziologické základy lesní terapie",
+      "lede": "Psychologické teorie, fyziologie lesa a chemie lesního vzduchu — co se v těle a mysli děje při kontaktu s lesem."
+    },
+    "practices": {
+      "title": "Praxe",
+      "meta": "Praxe | Digitální les",
+      "description": "Aplikované postupy lesní terapie a každodenního kontaktu s lesem",
+      "lede": "Konkrétní praktiky pro jednotlivce, rodiny, školy, pracoviště, průvodce a zdravotnické profese."
+    },
+    "forest-management": {
+      "title": "Lesní management",
+      "meta": "Lesní management | Digitální les",
+      "description": "Pěstební management pro terapeutické lesy",
+      "lede": "Jak pěstovat les pro lidské zdraví — od struktury porostu po legislativní rámec ČR."
+    },
+    "research": {
+      "title": "Výzkum",
+      "meta": "Výzkum | Digitální les",
+      "description": "Probíhající a dokončené studie projektu",
+      "lede": "Studie, pilotní projekty a případové popisy z naší laboratoře a partnerských institucí."
     }
+  },
+  "theory": {
+    "pillar": {
+      "psychology": "Psychologie",
+      "physiology": "Fyziologie",
+      "chemistry": "Chemie",
+      "process": "Proces"
+    }
+  },
+  "practices": {
+    "audience": {
+      "individuals": "Pro jednotlivce",
+      "families": "Rodiny",
+      "schools": "Školy",
+      "workplaces": "Pracoviště",
+      "guides": "Průvodci",
+      "health-professionals": "Zdravotníci"
+    }
+  },
+  "forest-management": {
+    "topic": {
+      "silviculture": "Pěstování",
+      "safety-visibility": "Viditelnost a bezpečí",
+      "soundscape": "Zvuková krajina",
+      "species": "Druhová skladba",
+      "typology": "Typologie",
+      "certification": "Certifikace",
+      "czech-law": "Česká legislativa"
+    }
+  },
+  "research": {
+    "status": {
+      "ongoing": "Probíhá",
+      "completed": "Dokončeno",
+      "planned": "Plánováno"
+    },
+    "externalLink": "Externí odkaz →"
   }
 }

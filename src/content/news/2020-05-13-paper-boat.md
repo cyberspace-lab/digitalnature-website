@@ -2,7 +2,7 @@
 template: blog-post
 title: Character design
 slug: /character-design
-date: 2020-05-23 23:40
+date: "2020-05-23 23:40"
 description: How to draw a character
 featuredImage: ./src/assets/blog/blog-1.png
 lang: en

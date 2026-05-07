@@ -66,15 +66,30 @@ export function getAlternateLocaleUrl(url: URL, targetLang: Lang): string {
 
 /**
  * Build the localized menu items array for Navigation.
+ *
+ * Menu items only appear for a language if `nav.<key>` is present in that
+ * locale's dictionary. Drop the key from the locale JSON to hide an item
+ * from that language's nav (used to keep the EN site simpler than CS).
  */
 export function getMenuItems(lang: Lang) {
   const t = useTranslations(lang);
   const prefix = lang === defaultLang ? '' : `/${lang}`;
-  return [
-    { path: `${prefix}/`, title: t('nav.home') },
-    { path: `${prefix}/blog`, title: t('nav.blog') },
-    { path: `${prefix}/publications`, title: t('nav.publications') },
-    { path: `${prefix}/team`, title: t('nav.team') },
-    { path: `${prefix}/contact`, title: t('nav.contact') },
+  const dict = dictionaries[lang] as Dict;
+  const navDict = (dict.nav ?? {}) as Record<string, string>;
+
+  const all = [
+    { key: 'home', path: `${prefix}/` },
+    { key: 'theory', path: `${prefix}/theory` },
+    { key: 'practices', path: `${prefix}/practices` },
+    { key: 'forest-management', path: `${prefix}/forest-management` },
+    { key: 'research', path: `${prefix}/research` },
+    { key: 'publications', path: `${prefix}/publications` },
+    { key: 'team', path: `${prefix}/team` },
+    { key: 'news', path: `${prefix}/news` },
+    { key: 'contact', path: `${prefix}/contact` },
   ];
+
+  return all
+    .filter((item) => item.key in navDict)
+    .map((item) => ({ path: item.path, title: t(`nav.${item.key}`) }));
 }

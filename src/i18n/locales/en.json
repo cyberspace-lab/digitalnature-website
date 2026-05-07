@@ -9,19 +9,22 @@
   },
   "nav": {
     "home": "Home",
-    "blog": "Blog",
+    "theory": "Theory",
+    "research": "Research",
     "publications": "Publications",
     "team": "Team",
+    "news": "News",
     "contact": "Contact"
   },
   "page": {
-    "blog": {
-      "title": "Blog"
+    "news": {
+      "title": "News"
     },
     "publications": {
       "title": "Publications",
       "meta": "Publications | Digital Forest",
-      "description": "Digital forest publications"
+      "description": "Academic publications from the Digital Forest project",
+      "lede": "Peer-reviewed papers, preprints, and project reports — primarily for academic collaborators."
     },
     "team": {
       "title": "Team",
@@ -33,6 +36,34 @@
     },
     "index": {
       "title": "About Project"
+    },
+    "theory": {
+      "title": "Theory",
+      "meta": "Theory | Digital Forest",
+      "description": "Psychological and physiological foundations of forest therapy",
+      "lede": "Psychological theories, forest physiology, and forest air chemistry — what happens in body and mind during forest exposure."
+    },
+    "research": {
+      "title": "Research",
+      "meta": "Research | Digital Forest",
+      "description": "Ongoing and completed studies",
+      "lede": "Studies, pilot projects, and case write-ups from our lab and partner institutions."
     }
+  },
+  "theory": {
+    "pillar": {
+      "psychology": "Psychology",
+      "physiology": "Physiology",
+      "chemistry": "Chemistry",
+      "process": "Process"
+    }
+  },
+  "research": {
+    "status": {
+      "ongoing": "Ongoing",
+      "completed": "Completed",
+      "planned": "Planned"
+    },
+    "externalLink": "External link →"
   }
 }
