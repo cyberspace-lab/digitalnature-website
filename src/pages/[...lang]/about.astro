@@ -1,0 +1,31 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import AboutContent from '../../components/AboutContent.astro';
+import { getCollection, render } from 'astro:content';
+import { useTranslations } from '../../i18n/utils';
+import { languages, defaultLang, type Lang } from '../../i18n/ui';
+import featuredImageAsset from '../../assets/suchdol.png';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((code) => ({
+    params: { lang: code === defaultLang ? undefined : code },
+    props: { lang: code as Lang },
+  }));
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const pages = await getCollection('pages', ({ id, data }) =>
+  id.startsWith('about.') && data.lang === lang
+);
+const entry = pages[0];
+const title = entry?.data.title ?? t('page.about.title');
+const Content = entry ? (await render(entry)).Content : null;
+---
+
+<MainLayout title={title} lang={lang}>
+  <AboutContent title={title} featuredImage={featuredImageAsset.src}>
+    {Content && <Content />}
+  </AboutContent>
+</MainLayout>

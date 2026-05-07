@@ -1,17 +1,23 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import TeamMemberCard from '../components/TeamMemberCard.vue';
+import MainLayout from '../../layouts/MainLayout.astro';
+import TeamMemberCard from '../../components/TeamMemberCard.vue';
 import { getCollection } from 'astro:content';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+import { languages, defaultLang, type Lang } from '../../i18n/ui';
 
-const lang = getLangFromUrl(Astro.url);
+export async function getStaticPaths() {
+  return Object.keys(languages).map((code) => ({
+    params: { lang: code === defaultLang ? undefined : code },
+    props: { lang: code as Lang },
+  }));
+}
+
+const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const teamMembers = await getCollection('team', ({ data }) => {
-  return data.template === 'team-member' && data.lang === lang;
-});
-
-// Sort team members if needed
+const teamMembers = await getCollection('team', ({ data }) =>
+  data.template === 'team-member' && data.lang === lang
+);
 const sortedTeamMembers = teamMembers.sort((a, b) =>
   a.data.title.localeCompare(b.data.title)
 );

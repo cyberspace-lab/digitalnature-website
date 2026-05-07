@@ -1,0 +1,47 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import { useTranslations } from '../../i18n/utils';
+import { languages, defaultLang, type Lang } from '../../i18n/ui';
+import FallingLeaves from '../../components/FallingLeaves.astro';
+import featuredImage from '../../assets/suchdol.png';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((code) => ({
+    params: { lang: code === defaultLang ? undefined : code },
+    props: { lang: code as Lang },
+  }));
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const pages = await getCollection('pages', ({ id, data }) =>
+  id.startsWith('index.') && data.lang === lang
+);
+const entry = pages[0];
+const Content = entry ? (await render(entry)).Content : null;
+const title = entry?.data.title ?? t('page.index.title');
+---
+
+<MainLayout title={title} lang={lang}>
+  <section class="goals-section">
+    <FallingLeaves />
+    <h2 class="goals-title">{title}</h2>
+    <div class="goals">
+      <div class="goals-text">
+        {Content && <Content />}
+      </div>
+      <div class="goals-image">
+        <Image
+          src={featuredImage}
+          alt={`${title} — featured image`}
+          class="featured-image"
+          width={520}
+          height={520}
+        />
+      </div>
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,38 @@
+{
+  "site": {
+    "title": "Digitální příroda",
+    "description": "Výzkumný projekt Digitální příroda",
+    "copyright": "© 2025 Digitální les"
+  },
+  "header": {
+    "title": "Vliv digitálních<br />lesů na<br />psychickou<br />pohodu"
+  },
+  "nav": {
+    "home": "Domů",
+    "blog": "Blog",
+    "publications": "Publikace",
+    "team": "Tým",
+    "contact": "Kontakt"
+  },
+  "page": {
+    "blog": {
+      "title": "Blog"
+    },
+    "publications": {
+      "title": "Publikace",
+      "meta": "Publikace | Digitální les",
+      "description": "Publikace projektu Digitální les"
+    },
+    "team": {
+      "title": "Tým",
+      "meta": "Tým | Digitální les",
+      "description": "Tým projektu Digitální les"
+    },
+    "about": {
+      "title": "O projektu Digitální příroda"
+    },
+    "index": {
+      "title": "O projektu"
+    }
+  }
+}

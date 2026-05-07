@@ -1,6 +1,4 @@
 ---
-template: contact-page
-slug: /contact
 title: Contact
 lang: en
 ---

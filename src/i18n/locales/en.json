@@ -1,0 +1,38 @@
+{
+  "site": {
+    "title": "Digital Nature",
+    "description": "Digital Nature Research Project",
+    "copyright": "© 2025 Digital Forest"
+  },
+  "header": {
+    "title": "CANOPy <br> Digital Forest <br> and Psychophysical <br> Well-being"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "publications": "Publications",
+    "team": "Team",
+    "contact": "Contact"
+  },
+  "page": {
+    "blog": {
+      "title": "Blog"
+    },
+    "publications": {
+      "title": "Publications",
+      "meta": "Publications | Digital Forest",
+      "description": "Digital forest publications"
+    },
+    "team": {
+      "title": "Team",
+      "meta": "Team | Digital Forest",
+      "description": "Digital forest team"
+    },
+    "about": {
+      "title": "About Digital Nature"
+    },
+    "index": {
+      "title": "About Project"
+    }
+  }
+}

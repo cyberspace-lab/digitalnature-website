@@ -2,14 +2,20 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import BlogCard from '../../components/BlogCard.vue';
 import { getCollection } from 'astro:content';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+import { languages, defaultLang, type Lang } from '../../i18n/ui';
 
-const lang = getLangFromUrl(Astro.url);
+export async function getStaticPaths() {
+  return Object.keys(languages).map((code) => ({
+    params: { lang: code === defaultLang ? undefined : code },
+    props: { lang: code as Lang },
+  }));
+}
+
+const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const posts = await getCollection('posts', ({ data }) => {
-  return data.lang === lang;
-});
+const posts = await getCollection('posts', ({ data }) => data.lang === lang);
 ---
 
 <MainLayout title={t('page.blog.title')} lang={lang}>
